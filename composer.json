@@ -8,7 +8,7 @@
 		"kirby-plugin"
 	],
 	"license": "Proprietary",
-	"homepage": "https://github.com/chrfickinger/kirby-quote",
+	"homepage": "https://github.com/chrfickinger/kirbyblock-quote",
 	"authors": [
 		{
 			"name": "Christian Fickinger",
