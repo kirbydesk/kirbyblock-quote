@@ -1,4 +1,4 @@
 <?php return array(
 
-	'kirbyblockquote.title' => 'Quote',
+	'kdblockquote.title' => 'Quote',
 );
