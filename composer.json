@@ -1,5 +1,5 @@
 {
-	"name": "kirbydesk/block-quote",
+	"name": "kirbydesk/kirbyblock-quote",
 	"description": "Quote Block for Kirby CMS",
 	"type": "kirby-plugin",
 	"keywords": [
@@ -7,7 +7,7 @@
 		"kirby-plugin"
 	],
 	"license": "proprietary",
-	"homepage": "https://github.com/kirbydesk/block-quote",
+	"homepage": "https://github.com/kirbydesk/kirbyblock-quote",
 	"authors": [
 		{
 			"name": "Christian Fickinger",
@@ -16,10 +16,10 @@
 		}
 	],
 	"extra": {
-		"installer-name": "block-quote"
+		"installer-name": "kirbyblock-quote"
 	},
 	"require": {
 		"getkirby/composer-installer": "^1.2",
-		"kirbydesk/fields": "dev-main"
+		"kirbydesk/kirby-pagewizard": "dev-main"
 	}
 }
