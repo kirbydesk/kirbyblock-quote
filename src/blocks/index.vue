@@ -1,5 +1,11 @@
 <template>
-	<div class="pwPreview" data-kirbyblock="quote" @dblclick="open">
+	<div
+		class="pwPreview"
+		data-kirbyblock="quote"
+		@dblclick="open"
+		:data-margintop="content.margintop === true ? 'true' : null"
+		:data-marginbottom="content.marginbottom === true ? 'true' : null"
+		>
 
 		<pwBlockinfo
 			:value="$t('kirbyblock-quote.name')"
@@ -7,13 +13,12 @@
 		/>
 
 		<div class="pwGrid">
-			<div class="pwGridItem" :style="gridVars">
-
-				<!-- Tagline -->
-				<pwTagline v-if="content.toggletagline" :value="content.tagline" />
-
-				<!-- Heading -->
-				<pwHeading v-if="content.toggleheading" :value="content.heading" :data-level="content.level" />
+			<div
+				class="pwGridItem"
+				:style="gridVars"
+				:data-paddingtop="content.paddingtop === true ? 'true' : null"
+				:data-paddingbottom="content.paddingbottom === true ? 'true' : null"
+				>
 
 				<!-- Quote -->
 				<pwQuote :quote="content.textquote" :author="content.author" />
@@ -24,20 +29,15 @@
 </template>
 
 <script>
-import pwBlockinfo from '@/../../kirby-pagewizard/src/components/blockinfo.vue'
-import pwTagline from '@/../../kirby-pagewizard/src/components/tagline.vue'
-import pwHeading from '@/../../kirby-pagewizard/src/components/heading.vue'
-import pwQuote from '@/../../kirby-pagewizard/src/components/quote.vue'
-import pwToggleGridTab from '@/../../kirby-pagewizard/src/mixins/toggleGridTab.js';
+import pwBlockinfo from '@/../../kirby-pagewizard/src/components/blockinfo.vue';
+import pwQuote from '@/../../kirby-pagewizard/src/components/quote.vue';
 import pwGridStyle from '@/../../kirby-pagewizard/src/mixins/gridStyle.js';
 
 export default {
 	components: {
 		pwBlockinfo,
-		pwTagline,
-		pwHeading,
 		pwQuote
 	},
-	mixins: [pwToggleGridTab, pwGridStyle],
+	mixins: [pwGridStyle]
 }
 </script>

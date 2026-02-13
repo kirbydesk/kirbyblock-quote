@@ -1,62 +1,71 @@
-<?php return [ 'blocks/pwQuote' => function () {
+<?php return [ 'blocks/pwquote' => function () {
 
     /* -------------- Block Defaults when not set in config.php --------------*/
-    $defaults = [
-      'heading' 					=> true,
-      'tagline' 					=> true,
-			'grid'							=> true,
-			'grid-size-sm'   		=> 12,
-			'grid-size-md'   		=> 12,
-			'grid-size-lg'   		=> 12,
-			'grid-size-xl'   		=> 12,
-      'grid-offset-sm' 		=> 1,
-      'grid-offset-md' 		=> 1,
-      'grid-offset-lg' 		=> 1,
-      'grid-offset-xl' 		=> 1,
-    ];
+    $defaultsFile = __DIR__ . '/../config/defaults.json';
+    $defaults = file_exists($defaultsFile)
+      ? json_decode(file_get_contents($defaultsFile), true)
+      : [];
 		// Merge config with defaults
-    $raw = option('kirbydesk.pagewizard.kirbyblocks.pwQuote', []);
+    $raw = option('kirbydesk.pagewizard.kirbyblocks.pwquote', []);
     $cfg = array_merge($defaults, is_array($raw) ? $raw : []);
 
     /* -------------- Allowed Fields --------------*/
-    $defaultHeading = !empty($cfg['heading']);
-    $defaultTagline = !empty($cfg['tagline']);
-		$defaultGrid = filter_var($cfg['grid'], FILTER_VALIDATE_BOOLEAN);
+		$defaultGrid = !empty($cfg['tab-grid']);
+    $defaultSpacing = !empty($cfg['tab-spacing']);
+		$defaultTheme = !empty($cfg['tab-theme']);
 
 		/* -------------- Tabs --------------*/
     $tabs = [];
 
-		$tabs['content'] = [
-      'label'  => 'pw.tab.content',
-      'fields' => [
-				'headlineContent' => ['extends' => 'pagewizard/headlines/blockcontent'],
-        'tagline' => [
-          'extends' => 'pagewizard/fields/tagline',
-          'when'    => ['toggleTagline' => true],
-        ],
-        'heading' => [
-          'extends' => 'pagewizard/fields/heading',
-          'when'    => ['toggleHeading' => true],
-        ],
-        'textQuote' => [
-          'extends' => 'pagewizard/fields/text-quote'
-        ],
-        'author' => [
-          'extends' => 'pagewizard/fields/author'
-        ]
-      ],
-    ];
+		/* -------------- Content Tab --------------*/
+		$contentFields = [
+			'headlineContent' => ['extends' => 'pagewizard/headlines/blockcontent'],
+		];
 
-		$tabs['grid'] = pwGrid::layout('pwText', [
-			'gridSizeSm'   => $defaults['grid-size-sm'],
-			'gridOffsetSm' => $defaults['grid-offset-sm'],
-			'gridSizeMd'   => $defaults['grid-size-md'],
-			'gridOffsetMd' => $defaults['grid-offset-md'],
-			'gridSizeLg'   => $defaults['grid-size-lg'],
-			'gridOffsetLg' => $defaults['grid-offset-lg'],
-			'gridSizeXl'   => $defaults['grid-size-xl'],
-			'gridOffsetXl' => $defaults['grid-offset-xl'],
-		]);
+		/* -------------- Quote --------------*/
+		$contentFields['textQuote'] = [
+			'extends' => 'pagewizard/fields/text-quote',
+		];
+		/* -------------- Author --------------*/
+		$contentFields['author'] = [
+			'extends' => 'pagewizard/fields/author',
+		];
+
+		$tabs['content'] = [
+			'label'  => 'pw.tab.content',
+			'fields' => $contentFields,
+		];
+
+		/* -------------- Grid Tab --------------*/
+		if ($defaultGrid) {
+			$tabs['grid'] = pwGrid::layout('pwquote', [
+				'gridSizeSm'   => $defaults['grid-size-sm'],
+				'gridOffsetSm' => $defaults['grid-offset-sm'],
+				'gridSizeMd'   => $defaults['grid-size-md'],
+				'gridOffsetMd' => $defaults['grid-offset-md'],
+				'gridSizeLg'   => $defaults['grid-size-lg'],
+				'gridOffsetLg' => $defaults['grid-offset-lg'],
+				'gridSizeXl'   => $defaults['grid-size-xl'],
+				'gridOffsetXl' => $defaults['grid-offset-xl'],
+			]);
+		}
+
+		/* -------------- Spacing Tab --------------*/
+		if ($defaultSpacing) {
+			$tabs['spacing'] = pwSpacing::options('pwquote', [
+				'marginTop'    => $defaults['margin-top'],
+				'marginBottom' => $defaults['margin-bottom'],
+				'paddingTop'   => $defaults['padding-top'],
+				'paddingBottom'=> $defaults['padding-bottom'],
+			]);
+		}
+
+		/* -------------- Theme Tab --------------*/
+		if ($defaultTheme) {
+			$tabs['theme'] = pwTheme::options('pwquote', [
+				'style' => $defaults['style'] ?? 'default',
+			]);
+		}
 
 		$tabs['properties'] = [
       'label'  => 'pw.tab.properties',
@@ -64,31 +73,6 @@
 				'headlineProperties' => ['extends' => 'pagewizard/headlines/blockproperties'],
         'fragment' => [
           'extends' => 'pagewizard/fields/fragment'
-        ]
-      ]
-    ];
-
-		$tabs['settings'] = [
-      'label'  => 'pw.tab.settings',
-      'fields' => [
-        'headlineFieldsettings' => ['extends' => 'pagewizard/headlines/fieldsettings'],
-        'toggleTagline' => [
-          'extends' => 'pagewizard/fields/field-visibility',
-          'label'   => 'pw.field.toggle.tagline',
-          'default' => (bool)$defaultTagline,
-          'help'    => 'The default setting for Tagline is: <code>' . ($defaultTagline ? t('pw.option.enabled') : t('pw.option.disabled')) . '</code>',
-        ],
-        'toggleHeading' => [
-          'extends' => 'pagewizard/fields/field-visibility',
-          'label'   => 'pw.field.toggle.heading',
-          'default' => (bool)$defaultHeading,
-          'help'    => t('pw.field.toggle.heading.help') . ' <code>' . ($defaultHeading ? t('pw.option.enabled') : t('pw.option.disabled')) . '</code>'
-        ],
-				'toggleGrid' => [
-          'extends' => 'pagewizard/fields/field-visibility',
-          'label'   => 'pw.field.toggle.grid',
-          'default' => (bool)$defaultGrid,
-          'help'    => t('pw.field.toggle.grid.help') . ' <code>' . ($defaultGrid ? t('pw.option.enabled') : t('pw.option.disabled')) . '</code>'
         ]
       ]
     ];
