@@ -1,18 +1,9 @@
 <?php return [ 'blocks/pwquote' => function () {
 
-    /* -------------- Block Defaults when not set in config.php --------------*/
-    $defaultsFile = __DIR__ . '/../config/defaults.json';
-    $defaults = file_exists($defaultsFile)
-      ? json_decode(file_get_contents($defaultsFile), true)
-      : [];
-		// Merge config with defaults
-    $raw = option('kirbydesk.pagewizard.kirbyblocks.pwquote', []);
-    $cfg = array_merge($defaults, is_array($raw) ? $raw : []);
-
-    /* -------------- Allowed Fields --------------*/
-		$defaultGrid = !empty($cfg['tab-grid']);
-    $defaultSpacing = !empty($cfg['tab-spacing']);
-		$defaultTheme = !empty($cfg['tab-theme']);
+    /* -------------- Config --------------*/
+    $config   = pwConfig::load('pwquote', __DIR__ . '/../config');
+    $settings = $config['settings'];
+    $defaults = $config['defaults'];
 
 		/* -------------- Tabs --------------*/
     $tabs = [];
@@ -36,46 +27,19 @@
 			'fields' => $contentFields,
 		];
 
-		/* -------------- Grid Tab --------------*/
-		if ($defaultGrid) {
-			$tabs['grid'] = pwGrid::layout('pwquote', [
-				'gridSizeSm'   => $defaults['grid-size-sm'],
-				'gridOffsetSm' => $defaults['grid-offset-sm'],
-				'gridSizeMd'   => $defaults['grid-size-md'],
-				'gridOffsetMd' => $defaults['grid-offset-md'],
-				'gridSizeLg'   => $defaults['grid-size-lg'],
-				'gridOffsetLg' => $defaults['grid-offset-lg'],
-				'gridSizeXl'   => $defaults['grid-size-xl'],
-				'gridOffsetXl' => $defaults['grid-offset-xl'],
-			]);
-		}
+		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
+		pwConfig::buildTabs('pwquote', $defaults, $settings, $tabs);
 
-		/* -------------- Spacing Tab --------------*/
-		if ($defaultSpacing) {
-			$tabs['spacing'] = pwSpacing::options('pwquote', [
-				'marginTop'    => $defaults['margin-top'],
-				'marginBottom' => $defaults['margin-bottom'],
-				'paddingTop'   => $defaults['padding-top'],
-				'paddingBottom'=> $defaults['padding-bottom'],
-			]);
-		}
-
-		/* -------------- Theme Tab --------------*/
-		if ($defaultTheme) {
-			$tabs['theme'] = pwTheme::options('pwquote', [
-				'style' => $defaults['style'] ?? 'default',
-			]);
-		}
-
+		/* -------------- Properties Tab --------------*/
 		$tabs['properties'] = [
-      'label'  => 'pw.tab.properties',
-      'fields' => [
+			'label'  => 'pw.tab.properties',
+			'fields' => [
 				'headlineProperties' => ['extends' => 'pagewizard/headlines/blockproperties'],
-        'fragment' => [
-          'extends' => 'pagewizard/fields/fragment'
-        ]
-      ]
-    ];
+				'fragment' => [
+					'extends' => 'pagewizard/fields/fragment'
+				]
+			]
+		];
 
 		/* -------------- Blueprint --------------*/
 		return [
