@@ -1,4 +1,8 @@
-<?php Kirby::plugin('kirbydesk/kirbyblock-quote', [
+<?php
+
+pwConfig::register('pwquote', __DIR__ . '/src/config');
+
+Kirby::plugin('kirbydesk/kirbyblock-quote', [
 
 	/* -------------- Extensions --------------*/
 	'blueprints' => require_once 'src/extensions/blueprints.php',

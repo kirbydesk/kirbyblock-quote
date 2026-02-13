@@ -1,7 +1,7 @@
 <?php return [ 'blocks/pwquote' => function () {
 
     /* -------------- Config --------------*/
-    $config   = pwConfig::load('pwquote', __DIR__ . '/../config');
+    $config   = pwConfig::load('pwquote');
     $settings = $config['settings'];
     $defaults = $config['defaults'];
 

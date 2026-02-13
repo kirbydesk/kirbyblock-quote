@@ -11,6 +11,6 @@
   "margin-bottom": false,
   "padding-top": true,
   "padding-bottom": true,
-  "style": "variant",
+  "style": "default",
   "background-size": "content"
 }
