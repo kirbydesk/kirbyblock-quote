@@ -10,7 +10,7 @@
 
 		/* -------------- Content Tab --------------*/
 		$contentFields = [
-			'headlineContent' => ['extends' => 'pagewizard/headlines/blockcontent'],
+			'headlineContent' => ['extends' => 'pagewizard/headlines/content'],
 		];
 
 		/* -------------- Quote --------------*/
@@ -27,19 +27,17 @@
 			'fields' => $contentFields,
 		];
 
+		/* -------------- Layout Tab --------------*/
+		$tabs['layout'] = pwLayout::options('pwquote', $defaults);
+
+		/* -------------- Style Tab --------------*/
+		$tabs['style'] = pwStyle::options('pwquote', $defaults);
+
 		/* -------------- Common Tabs (grid, spacing, theme) --------------*/
 		pwConfig::buildTabs('pwquote', $defaults, $settings, $tabs);
 
-		/* -------------- Properties Tab --------------*/
-		$tabs['properties'] = [
-			'label'  => 'pw.tab.properties',
-			'fields' => [
-				'headlineProperties' => ['extends' => 'pagewizard/headlines/blockproperties'],
-				'fragment' => [
-					'extends' => 'pagewizard/fields/fragment'
-				]
-			]
-		];
+		/* -------------- Settings Tab --------------*/
+		$tabs['settings'] = pwSettings::options('pwquote', $defaults);
 
 		/* -------------- Blueprint --------------*/
 		return [
