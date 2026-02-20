@@ -1,4 +1,5 @@
 {
+  "writer-modes": ["textarea"],
   "grid-size-sm": 12,
   "grid-size-md": 12,
   "grid-size-lg": 12,
@@ -9,10 +10,10 @@
   "grid-offset-xl": 1,
   "margin-top": false,
   "margin-bottom": false,
-	"padding-top": true,
+  "padding-top": true,
   "padding-right": true,
   "padding-bottom": true,
-	"padding-left": true,
+  "padding-left": true,
   "style": "default",
   "background-size": "content"
 }

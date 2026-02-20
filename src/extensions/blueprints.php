@@ -15,7 +15,8 @@
 
 		/* -------------- Quote --------------*/
 		$contentFields['textQuote'] = [
-			'extends' => 'pagewizard/fields/text-quote',
+			'extends'     => 'pagewizard/fields/text-quote',
+			'writerModes' => $defaults['writer-modes'] ?? ['textarea'],
 		];
 		/* -------------- Author --------------*/
 		$contentFields['author'] = [

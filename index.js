@@ -46,11 +46,15 @@
     computed: {
       parsedQuoteData() {
         const val = this.quote;
-        if (!val) return { text: "", align: "left" };
+        if (!val) return { text: "", align: "left", html: false };
         try {
-          return typeof val === "string" ? JSON.parse(val) : val;
+          const d = typeof val === "string" ? JSON.parse(val) : val;
+          if (d.mode !== void 0) {
+            return { text: d.writer || d.textarea || d.markdown || "", align: d.align || "left", html: d.mode === "writer" };
+          }
+          return { text: d.text || "", align: d.align || "left", html: false };
         } catch (e) {
-          return { text: val, align: "left" };
+          return { text: val, align: "left", html: false };
         }
       },
       parsedAuthorData() {
@@ -63,8 +67,8 @@
         }
       },
       quoteText() {
-        const { text = "" } = this.parsedQuoteData;
-        return text;
+        const { text = "", html = false } = this.parsedQuoteData;
+        return html ? text : this.nl2br(text);
       },
       authorText() {
         const { text = "" } = this.parsedAuthorData;
@@ -88,7 +92,7 @@
   };
   var _sfc_render$1 = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwquote" }, [_vm.quoteText ? _c("div", { staticClass: "quote", attrs: { "data-align": _vm.quoteAlign }, domProps: { "innerHTML": _vm._s(_vm.nl2br(_vm.quoteText)) } }) : _c("div", { staticClass: "quote placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.text-quote.placeholder")) + " ")]), _vm.authorText ? _c("div", { staticClass: "author", attrs: { "data-align": _vm.authorAlign } }, [_vm._v(_vm._s(_vm.authorText))]) : _c("div", { staticClass: "author placeholder" }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.author.placeholder")) + " ")])]);
+    return _c("div", { staticClass: "pwquote" }, [_vm.quoteText ? _c("div", { staticClass: "quote", attrs: { "data-align": _vm.quoteAlign }, domProps: { "innerHTML": _vm._s(_vm.nl2br(_vm.quoteText)) } }) : _c("div", { staticClass: "quote placeholder", attrs: { "data-align": _vm.quoteAlign } }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.text-quote.placeholder")) + " ")]), _vm.authorText ? _c("div", { staticClass: "author", attrs: { "data-align": _vm.authorAlign } }, [_vm._v(_vm._s(_vm.authorText))]) : _c("div", { staticClass: "author placeholder", attrs: { "data-align": _vm.authorAlign } }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.author.placeholder")) + " ")])]);
   };
   var _sfc_staticRenderFns$1 = [];
   _sfc_render$1._withStripped = true;
