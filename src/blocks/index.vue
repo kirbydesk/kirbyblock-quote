@@ -24,7 +24,12 @@
 				>
 
 				<!-- Quote -->
-				<pwQuote :quote="content.textquote" :author="content.author" />
+				<pwQuote
+					:quote="content.textquote"
+					:author="content.author"
+					:alignQuoteDefault="fieldDefaults['align-quote']"
+					:alignAuthorDefault="fieldDefaults['align-author']"
+				/>
 
 			</div>
 		</div>
@@ -42,6 +47,17 @@ export default {
 		pwBlockinfo,
 		pwQuote
 	},
-	mixins: [pwGridStyle, pwColorStyle]
+	mixins: [pwGridStyle, pwColorStyle],
+	data() {
+		return {
+			fieldDefaults: {}
+		}
+	},
+	async created() {
+		try {
+			const response = await this.$api.get('pagewizard/settings/pwquote');
+			this.fieldDefaults = response.fields || {};
+		} catch (e) {}
+	}
 }
 </script>

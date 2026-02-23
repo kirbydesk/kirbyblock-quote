@@ -41,29 +41,34 @@
   const _sfc_main$1 = {
     props: {
       quote: String,
-      author: String
+      author: String,
+      alignQuoteDefault: { type: String, default: "left" },
+      alignAuthorDefault: { type: String, default: "left" },
+      alignQuote: { type: String, default: null },
+      alignAuthor: { type: String, default: null }
     },
     computed: {
       parsedQuoteData() {
         const val = this.quote;
-        if (!val) return { text: "", align: "left", html: false };
+        if (!val) return { text: "", align: this.alignQuoteDefault, html: false };
         try {
           const d = typeof val === "string" ? JSON.parse(val) : val;
           if (d.mode !== void 0) {
-            return { text: d.writer || d.textarea || d.markdown || "", align: d.align || "left", html: d.mode === "writer" };
+            return { text: d.writer || d.textarea || d.markdown || "", align: d.align || this.alignQuoteDefault, html: d.mode === "writer" };
           }
-          return { text: d.text || "", align: d.align || "left", html: false };
+          return { text: d.text || "", align: d.align || this.alignQuoteDefault, html: false };
         } catch (e) {
-          return { text: val, align: "left", html: false };
+          return { text: val, align: this.alignQuoteDefault, html: false };
         }
       },
       parsedAuthorData() {
         const val = this.author;
-        if (!val) return { text: "" };
+        if (!val) return { text: "", align: this.alignAuthorDefault };
         try {
-          return typeof val === "string" ? JSON.parse(val) : val;
+          const d = typeof val === "string" ? JSON.parse(val) : val;
+          return { text: d.text || "", align: d.align || this.alignAuthorDefault };
         } catch (e) {
-          return { text: val };
+          return { text: val, align: this.alignAuthorDefault };
         }
       },
       quoteText() {
@@ -75,11 +80,13 @@
         return text;
       },
       quoteAlign() {
-        const { align = "left" } = this.parsedQuoteData;
+        if (this.alignQuote) return this.alignQuote;
+        const { align = this.alignQuoteDefault } = this.parsedQuoteData;
         return align;
       },
       authorAlign() {
-        const { align = "left" } = this.parsedAuthorData;
+        if (this.alignAuthor) return this.alignAuthor;
+        const { align = this.alignAuthorDefault } = this.parsedAuthorData;
         return align;
       }
     },
@@ -177,11 +184,23 @@
       pwBlockinfo,
       pwQuote
     },
-    mixins: [pwGridStyle, pwColorStyle]
+    mixins: [pwGridStyle, pwColorStyle],
+    data() {
+      return {
+        fieldDefaults: {}
+      };
+    },
+    async created() {
+      try {
+        const response = await this.$api.get("pagewizard/settings/pwquote");
+        this.fieldDefaults = response.fields || {};
+      } catch (e) {
+      }
+    }
   };
   var _sfc_render = function render() {
     var _vm = this, _c = _vm._self._c;
-    return _c("div", { staticClass: "pwPreview", style: _vm.colorVars, attrs: { "data-kirbyblock": "quote", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-quote.name"), "icon": "quote" } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingright": _vm.content.paddingright === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null, "data-paddingleft": _vm.content.paddingleft === true ? "true" : null } }, [_c("pwQuote", { attrs: { "quote": _vm.content.textquote, "author": _vm.content.author } })], 1)])], 1);
+    return _c("div", { staticClass: "pwPreview", style: _vm.colorVars, attrs: { "data-kirbyblock": "quote", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-quote.name"), "icon": "quote" } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingright": _vm.content.paddingright === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null, "data-paddingleft": _vm.content.paddingleft === true ? "true" : null } }, [_c("pwQuote", { attrs: { "quote": _vm.content.textquote, "author": _vm.content.author, "alignQuoteDefault": _vm.fieldDefaults["align-quote"], "alignAuthorDefault": _vm.fieldDefaults["align-author"] } })], 1)])], 1);
   };
   var _sfc_staticRenderFns = [];
   _sfc_render._withStripped = true;

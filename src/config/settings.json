@@ -1,3 +1,5 @@
 {
-  "tab-grid": true
+  "tabs": {
+    "grid": true
+  }
 }
