@@ -1,3 +1,14 @@
 section[data-block="quote"] {
-
+	[data-field="quote"] {
+		+ figcaption {
+			margin-top: .7rem;
+		}
+	}
+}
+section[data-block="multicolumn"] {
+	[data-field="quote"] {
+		+ figcaption {
+			margin-top: .7rem;
+		}
+	}
 }

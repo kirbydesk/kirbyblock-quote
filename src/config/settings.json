@@ -1,5 +1,8 @@
 {
   "tabs": {
-    "grid": true
+    "layout": true,
+    "style": true,
+    "grid": true,
+    "settings": true
   }
 }

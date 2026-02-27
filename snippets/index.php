@@ -1,8 +1,16 @@
 <?php
 
-// Custom Background
+// Config
+$config   = pwConfig::load('pwquote');
+$settings = $config['settings'];
+
+// Custom CSS
 if ($block->content()->style()->value() === 'custom'):
-	echo '<style>section[data-block-id="b'.$block->id().'"] { color: '.$block->content()->textcolor()->value().'; background-color: '.$block->content()->backgroundcolor()->value().' }</style>';
+	snippet('customcss', [
+		'blockid' => 'b'.$block->id(),
+		'textcolor' => $block->content()->textcolor()->value(),
+		'backgroundcolor' => $block->content()->backgroundcolor()->value()
+	]);
 endif;
 
 // Section

@@ -25,7 +25,7 @@
 
 				<!-- Quote -->
 				<pwQuote
-					:quote="content.textquote"
+					:quote="content.quote"
 					:author="content.author"
 					:alignQuoteDefault="fieldDefaults['align-quote']"
 					:alignAuthorDefault="fieldDefaults['align-author']"

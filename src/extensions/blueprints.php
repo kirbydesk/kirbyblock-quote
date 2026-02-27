@@ -16,8 +16,8 @@
 	];
 
 	/* -------------- Quote --------------*/
-	$contentFields['textQuote'] = [
-		'extends'      => 'pagewizard/fields/text-quote',
+	$contentFields['quote'] = [
+		'extends'      => 'pagewizard/fields/quote',
 		'align'        => $fields['align-quote'],
 	];
 	/* -------------- Author --------------*/
@@ -32,16 +32,16 @@
 	];
 
 	/* -------------- Layout Tab --------------*/
-	$tabs['layout'] = pwLayout::options('pwquote', $defaults);
+	pwConfig::addTab($tabs, 'layout', $tabSettings['layout'] ?? true, pwLayout::options('pwquote', $defaults));
 
 	/* -------------- Style Tab --------------*/
-	$tabs['style'] = pwStyle::options('pwquote', $defaults);
+	pwConfig::addTab($tabs, 'style', $tabSettings['style'] ?? true, pwStyle::options('pwquote', $defaults));
 
-	/* -------------- Common Tabs (grid, spacing, theme) --------------*/
-	pwConfig::buildTabs('pwquote', $defaults, $tabSettings, $tabs);
+	/* -------------- Grid Tab --------------*/
+	pwConfig::addTab($tabs, 'grid', $tabSettings['grid'] ?? false, pwGrid::layout('pwquote', $defaults));
 
 	/* -------------- Settings Tab --------------*/
-	$tabs['settings'] = pwSettings::options('pwquote', $defaults);
+	pwConfig::addTab($tabs, 'settings', $tabSettings['settings'] ?? true, pwSettings::options('pwquote', $defaults));
 
 	/* -------------- Blueprint --------------*/
 	return [
