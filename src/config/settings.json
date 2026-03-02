@@ -1,4 +1,19 @@
 {
+  "fields": {
+    "content": {},
+    "layout": {
+      "padding": true,
+      "radius": true
+    },
+    "style": {
+      "theme": true
+    },
+    "settings": {
+      "fragment": true,
+      "block-size": true,
+      "margin": true
+    }
+  },
   "tabs": {
     "layout": true,
     "style": true,
