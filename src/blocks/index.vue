@@ -23,14 +23,16 @@
 				:data-paddingleft="content.paddingleft === true ? 'true' : null"
 				>
 
-				<!-- Quote -->
-				<pwQuote
-					:quote="content.quote"
-					:author="content.author"
-					:alignQuoteDefault="fieldDefaults['align-quote']"
-					:alignAuthorDefault="fieldDefaults['align-author']"
-				/>
+				<div class="contents">
 
+					<!-- Quote -->
+					<pwQuote
+						:quote="content.quote"
+						:author="content.author"
+						:alignQuoteDefault="fieldDefaults['align-quote']"
+						:alignAuthorDefault="fieldDefaults['align-author']"
+					/>
+				</div>
 			</div>
 		</div>
 	</div>

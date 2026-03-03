@@ -17,13 +17,16 @@
 
 	/* -------------- Quote --------------*/
 	$contentFields['quote'] = [
-		'extends'      => 'pagewizard/fields/quote',
-		'align'        => $fields['align-quote'],
+		'extends'	=> 'pagewizard/fields/quote',
+		'label'		=> 'pw.field.quote',
+		'placeholder'		=> 'pw.field.quote.placeholder',
+		'align'  	=> $fields['align-quote'],
+		'size'   	=> 'normal'
 	];
 	/* -------------- Author --------------*/
 	$contentFields['author'] = [
 		'extends' => 'pagewizard/fields/author',
-		'align'   => $fields['align-author'],
+		'align'   => $fields['align-author']
 	];
 
 	$tabs['content'] = [

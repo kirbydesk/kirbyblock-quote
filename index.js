@@ -1,1 +1,226 @@
-(function(){"use strict";function i(e,t,n,r,o,s,D,A){var a=typeof e=="function"?e.options:e;return t&&(a.render=t,a.staticRenderFns=n,a._compiled=!0),s&&(a._scopeId="data-v-"+s),{exports:e,options:a}}const l={props:{value:String,icon:String,layout:String}};var u=function(){var t=this,n=t._self._c;return n("div",{staticClass:"blockinfo"},[n("div",[n("svg",{staticClass:"k-icon",attrs:{"aria-hidden":"true"}},[n("use",{attrs:{"xlink:href":"#icon-"+t.icon}})]),t._v(" "+t._s(t.value)+" "),t.layout?n("span",[t._v("("+t._s(t.layout)+")")]):t._e()])])},c=[],d=i(l,u,c,!1,null,"0c498ebd");const g=d.exports,h={props:{quote:String,author:String,alignQuoteDefault:{type:String,default:"left"},alignAuthorDefault:{type:String,default:"left"},alignQuote:{type:String,default:null},alignAuthor:{type:String,default:null}},computed:{parsedQuoteData(){const e=this.quote;if(!e)return{text:"",align:this.alignQuoteDefault,html:!1};try{const t=typeof e=="string"?JSON.parse(e):e;return t.mode!==void 0?{text:t.writer||t.textarea||t.markdown||"",align:t.align||this.alignQuoteDefault,html:t.mode==="writer"}:{text:t.text||"",align:t.align||this.alignQuoteDefault,html:!1}}catch{return{text:e,align:this.alignQuoteDefault,html:!1}}},parsedAuthorData(){const e=this.author;if(!e)return{text:"",align:this.alignAuthorDefault};try{const t=typeof e=="string"?JSON.parse(e):e;return{text:t.text||"",align:t.align||this.alignAuthorDefault}}catch{return{text:e,align:this.alignAuthorDefault}}},quoteText(){const{text:e="",html:t=!1}=this.parsedQuoteData;return t?e:this.nl2br(e)},authorText(){const{text:e=""}=this.parsedAuthorData;return e},quoteAlign(){if(this.alignQuote)return this.alignQuote;const{align:e=this.alignQuoteDefault}=this.parsedQuoteData;return e},authorAlign(){if(this.alignAuthor)return this.alignAuthor;const{align:e=this.alignAuthorDefault}=this.parsedAuthorData;return e}},methods:{nl2br(e){return e?e.replace(/\n/g,"<br>"):""}}};var f=function(){var t=this,n=t._self._c;return n("div",{staticClass:"pwquote"},[t.quoteText?n("div",{staticClass:"quote",attrs:{"data-align":t.quoteAlign},domProps:{innerHTML:t._s(t.nl2br(t.quoteText))}}):n("div",{staticClass:"quote placeholder",attrs:{"data-align":t.quoteAlign}},[t._v(" "+t._s(t.$t("pw.field.quote.placeholder"))+" ")]),t.authorText?n("div",{staticClass:"author",attrs:{"data-align":t.authorAlign}},[t._v(t._s(t.authorText))]):n("div",{staticClass:"author placeholder",attrs:{"data-align":t.authorAlign}},[t._v(" "+t._s(t.$t("pw.field.author.placeholder"))+" ")])])},p=[],m=i(h,f,p,!1,null,"8629a3b2");const _=m.exports,v={components:{pwBlockinfo:g,pwQuote:_},mixins:[{computed:{gridVars(){return{"--grid-start-sm":Number(this.content.gridoffsetsm),"--grid-span-sm":Number(this.content.gridsizesm),"--grid-start-md":Number(this.content.gridoffsetmd),"--grid-span-md":Number(this.content.gridsizemd),"--grid-start-lg":Number(this.content.gridoffsetlg),"--grid-span-lg":Number(this.content.gridsizelg),"--grid-start-xl":Number(this.content.gridoffsetxl),"--grid-span-xl":Number(this.content.gridsizexl)}}}},{data(){return{colors:null}},async created(){try{this.colors=await this.$api.get("pagewizard/colors")}catch{this.colors=null}},computed:{colorVars(){if(!this.colors)return{};const e=this.content.theme||"default",t={};if(e==="custom"){for(const[r,o]of Object.entries(this.colors.default))t["--"+r]=o;if(this.content.textcolor&&(t["--pw-color-text"]=this.content.textcolor,t["--pw-color-heading"]=this.content.textcolor,t["--pw-color-tagline"]=this.content.textcolor,t["--pw-color-link"]=this.content.textcolor,t["--pw-color-quote"]=this.content.textcolor,t["--pw-color-cite"]=this.content.textcolor),this.content.backgroundcolor&&(t["--pw-color-block-background"]=this.content.backgroundcolor),(this.content.buttonstyle||"default")==="variant"&&this.colors.variant){const r=Object.keys(this.colors.variant).filter(o=>o.startsWith("pw-color-button"));for(const o of r)t["--"+o]=this.colors.variant[o]}}else{const n=e==="variant"?{...this.colors.default,...this.colors.variant}:this.colors.default;for(const[r,o]of Object.entries(n))t["--"+r]=o}return t}}}],data(){return{fieldDefaults:{}}},async created(){try{const e=await this.$api.get("pagewizard/settings/pwquote");this.fieldDefaults=e.fields||{}}catch{}}};var b=function(){var t=this,n=t._self._c;return n("div",{staticClass:"pwPreview",style:t.colorVars,attrs:{"data-kirbyblock":"quote","data-margintop":t.content.margintop===!0?"true":null,"data-marginbottom":t.content.marginbottom===!0?"true":null},on:{dblclick:t.open}},[n("pwBlockinfo",{attrs:{value:t.$t("kirbyblock-quote.name"),icon:"quote"}}),n("div",{staticClass:"pwGrid"},[n("div",{staticClass:"pwGridItem",style:t.gridVars,attrs:{"data-paddingtop":t.content.paddingtop===!0?"true":null,"data-paddingright":t.content.paddingright===!0?"true":null,"data-paddingbottom":t.content.paddingbottom===!0?"true":null,"data-paddingleft":t.content.paddingleft===!0?"true":null}},[n("pwQuote",{attrs:{quote:t.content.quote,author:t.content.author,alignQuoteDefault:t.fieldDefaults["align-quote"],alignAuthorDefault:t.fieldDefaults["align-author"]}})],1)])],1)},y=[],w=i(v,b,y,!1,null,null);const x=w.exports;panel.plugin("kirbydesk/kirbyblock-quote",{blocks:{pwquote:x}})})();
+(function() {
+  "use strict";
+  function normalizeComponent(scriptExports, render, staticRenderFns, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render) {
+      options.render = render;
+      options.staticRenderFns = staticRenderFns;
+      options._compiled = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const _sfc_main$2 = {
+    props: {
+      value: String,
+      icon: String,
+      layout: String
+    }
+  };
+  var _sfc_render$2 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "blockinfo" }, [_c("div", [_c("svg", { staticClass: "k-icon", attrs: { "aria-hidden": "true" } }, [_c("use", { attrs: { "xlink:href": "#icon-" + _vm.icon } })]), _vm._v(" " + _vm._s(_vm.value) + " "), _vm.layout ? _c("span", [_vm._v("(" + _vm._s(_vm.layout) + ")")]) : _vm._e()])]);
+  };
+  var _sfc_staticRenderFns$2 = [];
+  _sfc_render$2._withStripped = true;
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$2,
+    _sfc_render$2,
+    _sfc_staticRenderFns$2,
+    false,
+    null,
+    "26526d24"
+  );
+  __component__$2.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirby-pagewizard/src/components/blockinfo.vue";
+  const pwBlockinfo = __component__$2.exports;
+  const _sfc_main$1 = {
+    props: {
+      quote: String,
+      author: String,
+      alignQuoteDefault: { type: String, default: "left" },
+      alignAuthorDefault: { type: String, default: "left" },
+      alignQuote: { type: String, default: null },
+      alignAuthor: { type: String, default: null }
+    },
+    computed: {
+      parsedQuoteData() {
+        const val = this.quote;
+        if (!val) return { text: "", align: this.alignQuoteDefault, html: false };
+        try {
+          const d = typeof val === "string" ? JSON.parse(val) : val;
+          if (d.mode !== void 0) {
+            return { text: d.writer || d.textarea || d.markdown || "", align: d.align || this.alignQuoteDefault, size: d.size || "normal", html: d.mode === "writer" };
+          }
+          return { text: d.text || "", align: d.align || this.alignQuoteDefault, size: "normal", html: false };
+        } catch (e) {
+          return { text: val, align: this.alignQuoteDefault, html: false };
+        }
+      },
+      parsedAuthorData() {
+        const val = this.author;
+        if (!val) return { text: "", align: this.alignAuthorDefault };
+        try {
+          const d = typeof val === "string" ? JSON.parse(val) : val;
+          return { text: d.text || "", align: d.align || this.alignAuthorDefault };
+        } catch (e) {
+          return { text: val, align: this.alignAuthorDefault };
+        }
+      },
+      quoteText() {
+        const { text = "", html = false } = this.parsedQuoteData;
+        return html ? text : this.nl2br(text);
+      },
+      authorText() {
+        const { text = "" } = this.parsedAuthorData;
+        return text;
+      },
+      size() {
+        const { size = "normal" } = this.parsedQuoteData;
+        return size;
+      },
+      quoteAlign() {
+        if (this.alignQuote) return this.alignQuote;
+        const { align = this.alignQuoteDefault } = this.parsedQuoteData;
+        return align;
+      },
+      authorAlign() {
+        if (this.alignAuthor) return this.alignAuthor;
+        const { align = this.alignAuthorDefault } = this.parsedAuthorData;
+        return align;
+      }
+    },
+    methods: {
+      nl2br(text) {
+        if (!text) return "";
+        return text.replace(/\n/g, "<br>");
+      }
+    }
+  };
+  var _sfc_render$1 = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "pwquote" }, [_vm.quoteText ? _c("div", { staticClass: "quote", attrs: { "data-align": _vm.quoteAlign, "data-size": _vm.size }, domProps: { "innerHTML": _vm._s(_vm.nl2br(_vm.quoteText)) } }) : _c("div", { staticClass: "quote placeholder", attrs: { "data-align": _vm.quoteAlign } }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.quote.placeholder")) + " ")]), _vm.authorText ? _c("div", { staticClass: "author", attrs: { "data-align": _vm.authorAlign } }, [_vm._v(_vm._s(_vm.authorText))]) : _c("div", { staticClass: "author placeholder", attrs: { "data-align": _vm.authorAlign } }, [_vm._v(" " + _vm._s(_vm.$t("pw.field.author.placeholder")) + " ")])]);
+  };
+  var _sfc_staticRenderFns$1 = [];
+  _sfc_render$1._withStripped = true;
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(
+    _sfc_main$1,
+    _sfc_render$1,
+    _sfc_staticRenderFns$1,
+    false,
+    null,
+    "90325663"
+  );
+  __component__$1.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirby-pagewizard/src/components/quote.vue";
+  const pwQuote = __component__$1.exports;
+  const pwGridStyle = {
+    computed: {
+      gridVars() {
+        return {
+          "--grid-start-sm": Number(this.content.gridoffsetsm),
+          "--grid-span-sm": Number(this.content.gridsizesm),
+          "--grid-start-md": Number(this.content.gridoffsetmd),
+          "--grid-span-md": Number(this.content.gridsizemd),
+          "--grid-start-lg": Number(this.content.gridoffsetlg),
+          "--grid-span-lg": Number(this.content.gridsizelg),
+          "--grid-start-xl": Number(this.content.gridoffsetxl),
+          "--grid-span-xl": Number(this.content.gridsizexl)
+        };
+      }
+    }
+  };
+  const pwColorStyle = {
+    data() {
+      return {
+        colors: null
+      };
+    },
+    async created() {
+      try {
+        this.colors = await this.$api.get("pagewizard/colors");
+      } catch (e) {
+        this.colors = null;
+      }
+    },
+    computed: {
+      colorVars() {
+        if (!this.colors) return {};
+        const style = this.content.theme || "default";
+        const vars = {};
+        if (style === "custom") {
+          for (const [key, value] of Object.entries(this.colors.default)) {
+            vars["--" + key] = value;
+          }
+          if (this.content.textcolor) {
+            vars["--pw-color-text"] = this.content.textcolor;
+            vars["--pw-color-heading"] = this.content.textcolor;
+            vars["--pw-color-tagline"] = this.content.textcolor;
+            vars["--pw-color-link"] = this.content.textcolor;
+            vars["--pw-color-quote"] = this.content.textcolor;
+            vars["--pw-color-cite"] = this.content.textcolor;
+          }
+          if (this.content.backgroundcolor) {
+            vars["--pw-color-block-background"] = this.content.backgroundcolor;
+          }
+          const btnStyle = this.content.buttonstyle || "default";
+          if (btnStyle === "variant" && this.colors.variant) {
+            const btnKeys = Object.keys(this.colors.variant).filter((k) => k.startsWith("pw-color-button"));
+            for (const key of btnKeys) {
+              vars["--" + key] = this.colors.variant[key];
+            }
+          }
+        } else {
+          const palette = style === "variant" ? { ...this.colors.default, ...this.colors.variant } : this.colors.default;
+          for (const [key, value] of Object.entries(palette)) {
+            vars["--" + key] = value;
+          }
+        }
+        return vars;
+      }
+    }
+  };
+  const _sfc_main = {
+    components: {
+      pwBlockinfo,
+      pwQuote
+    },
+    mixins: [pwGridStyle, pwColorStyle],
+    data() {
+      return {
+        fieldDefaults: {}
+      };
+    },
+    async created() {
+      try {
+        const response = await this.$api.get("pagewizard/settings/pwquote");
+        this.fieldDefaults = response.fields || {};
+      } catch (e) {
+      }
+    }
+  };
+  var _sfc_render = function render() {
+    var _vm = this, _c = _vm._self._c;
+    return _c("div", { staticClass: "pwPreview", style: _vm.colorVars, attrs: { "data-kirbyblock": "quote", "data-margintop": _vm.content.margintop === true ? "true" : null, "data-marginbottom": _vm.content.marginbottom === true ? "true" : null }, on: { "dblclick": _vm.open } }, [_c("pwBlockinfo", { attrs: { "value": _vm.$t("kirbyblock-quote.name"), "icon": "quote" } }), _c("div", { staticClass: "pwGrid" }, [_c("div", { staticClass: "pwGridItem", style: _vm.gridVars, attrs: { "data-paddingtop": _vm.content.paddingtop === true ? "true" : null, "data-paddingright": _vm.content.paddingright === true ? "true" : null, "data-paddingbottom": _vm.content.paddingbottom === true ? "true" : null, "data-paddingleft": _vm.content.paddingleft === true ? "true" : null } }, [_c("div", { staticClass: "contents" }, [_c("pwQuote", { attrs: { "quote": _vm.content.quote, "author": _vm.content.author, "alignQuoteDefault": _vm.fieldDefaults["align-quote"], "alignAuthorDefault": _vm.fieldDefaults["align-author"] } })], 1)])])], 1);
+  };
+  var _sfc_staticRenderFns = [];
+  _sfc_render._withStripped = true;
+  var __component__ = /* @__PURE__ */ normalizeComponent(
+    _sfc_main,
+    _sfc_render,
+    _sfc_staticRenderFns,
+    false,
+    null,
+    null
+  );
+  __component__.options.__file = "/Users/christian/Projects/kirbydesk/site/plugins/kirbyblock-quote/src/blocks/index.vue";
+  const pwquote = __component__.exports;
+  panel.plugin("kirbydesk/kirbyblock-quote", {
+    blocks: {
+      pwquote
+    }
+  });
+})();
