@@ -80,7 +80,7 @@
         return text;
       },
       size() {
-        const { size = "normal" } = this.parsedQuoteData;
+        const { size = "2xl" } = this.parsedQuoteData;
         return size;
       },
       quoteAlign() {

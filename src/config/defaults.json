@@ -1,7 +1,7 @@
 {
   "content": {
-    "align-quote": "left",
-    "align-author": "left"
+    "quote":  { "align": "left", "size": "lg", "mode": "textarea" },
+    "author": { "align": "left" }
   },
   "layout": {
     "padding-top": true,

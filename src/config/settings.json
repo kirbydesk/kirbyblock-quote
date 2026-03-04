@@ -1,6 +1,21 @@
 {
-  "fields": {
-    "content": {},
+  "tabs": {
+    "layout": true,
+    "style": true,
+    "grid": true,
+    "settings": true
+  },
+	"fields": {
+    "content": {
+      "quote": {
+        "align": [ "left", "center", "right" ],
+        "sizes": [ "xs", "sm", "md", "lg", "xl", "2xl", "3xl" ],
+        "mode": [ "textarea" ]
+      },
+      "author": {
+        "align": [ "left", "center", "right" ]
+      }
+    },
     "layout": {
       "padding": true,
       "radius": true
@@ -13,11 +28,5 @@
       "block-size": true,
       "margin": true
     }
-  },
-  "tabs": {
-    "layout": true,
-    "style": true,
-    "grid": true,
-    "settings": true
   }
 }

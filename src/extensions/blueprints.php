@@ -1,11 +1,12 @@
 <?php return [ 'blocks/pwquote' => function () {
 
 	/* -------------- Config --------------*/
-	$config      = pwConfig::load('pwquote');
-	$settings    = $config['content'];
-	$tabSettings = $config['tabs'];
-	$defaults    = $config['defaults'];
-	$fields      = $config['fields'];
+	$config       = pwConfig::load('pwquote');
+	$settings     = $config['content'];
+	$tabSettings  = $config['tabs'];
+	$defaults     = $config['defaults'];
+	$fields       = $config['fields'];
+	$fieldOptions = $config['field-options'];
 
 	/* -------------- Tabs --------------*/
 	$tabs = [];
@@ -17,11 +18,13 @@
 
 	/* -------------- Quote --------------*/
 	$contentFields['quote'] = [
-		'extends'	=> 'pagewizard/fields/quote',
-		'label'		=> 'pw.field.quote',
-		'placeholder'		=> 'pw.field.quote.placeholder',
-		'align'  	=> $fields['align-quote'],
-		'size'   	=> 'normal'
+		'extends'      => 'pagewizard/fields/quote',
+		'label'        => 'pw.field.quote',
+		'placeholder'  => 'pw.field.quote.placeholder',
+		'align'        => $fields['align-quote'],
+		'size'         => $fields['size-quote'] ?? null,
+		'sizeOptions'  => $fieldOptions['quote']['sizes'] ?? null,
+		'alignOptions' => $fieldOptions['quote']['align'] ?? null,
 	];
 	/* -------------- Author --------------*/
 	$contentFields['author'] = [
