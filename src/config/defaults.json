@@ -4,8 +4,8 @@
     "author": { "align": "left" }
   },
   "layout": {
-    "padding-top": true,
-    "padding-right": true,
+    "padding-top": "large",
+    "padding-right": "large",
     "padding-bottom": true,
     "padding-left": true,
     "radius-top-left": false,
