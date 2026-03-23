@@ -1,6 +1,6 @@
 {
 	"name": "kirbydesk/kirbyblock-quote",
-	"version": "1.5.2",
+	"version": "1.0.0",
 	"description": "Quote Block for Kirby CMS",
 	"type": "kirby-plugin",
 	"keywords": [

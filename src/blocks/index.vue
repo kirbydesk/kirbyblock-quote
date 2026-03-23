@@ -17,10 +17,10 @@
 			<div
 				class="pwGridItem"
 				:style="gridVars"
-				:data-paddingtop="content.paddingtop || null"
-				:data-paddingright="content.paddingright === true ? 'true' : null"
-				:data-paddingbottom="content.paddingbottom || null"
-				:data-paddingleft="content.paddingleft === true ? 'true' : null"
+				:data-paddingtop="content.paddingtop || defaults['padding-top'] || null"
+				:data-paddingright="(content.paddingright !== undefined ? content.paddingright : defaults['padding-right']) === true ? 'true' : null"
+				:data-paddingbottom="content.paddingbottom || defaults['padding-bottom'] || null"
+				:data-paddingleft="(content.paddingleft !== undefined ? content.paddingleft : defaults['padding-left']) === true ? 'true' : null"
 				>
 
 				<div class="contents">
@@ -52,13 +52,15 @@ export default {
 	mixins: [pwGridStyle, pwColorStyle],
 	data() {
 		return {
-			fieldDefaults: {}
+			fieldDefaults: {},
+			defaults: {}
 		}
 	},
 	async created() {
 		try {
 			const response = await this.$api.get('pagewizard/settings/pwquote');
 			this.fieldDefaults = response.fields || {};
+			this.defaults = response.defaults || {};
 		} catch (e) {}
 	}
 }
