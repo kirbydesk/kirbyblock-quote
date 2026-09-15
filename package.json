@@ -1,4 +1,6 @@
 {
 	"name": "kirbyblock-quote",
+	"description": "Quote",
+	"icon": "quote",
 	"version": "1.0.2"
 }
