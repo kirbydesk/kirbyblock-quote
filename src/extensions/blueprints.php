@@ -11,6 +11,9 @@
 				'size'         => $cfg['fields']['size-quote'] ?? null,
 				'sizeOptions'  => $cfg['field-options']['quote']['sizes'] ?? null,
 				'alignOptions' => $cfg['field-options']['quote']['align'] ?? null,
+				// editor mode from the Project Wizard (today only "textarea" is allowed)
+				'writerModes'  => $cfg['field-options']['quote']['mode'] ?? ['textarea'],
+				'defaultMode'  => $cfg['fields']['mode-quote'] ?? null,
 			],
 			'author' => [
 				'extends' => 'pagewizard/fields/author',
