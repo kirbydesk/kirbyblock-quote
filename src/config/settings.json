@@ -8,6 +8,7 @@
 	"fields": {
 		"content": {
 			"quote": {
+				"locked": true,
 				"align": {
 					"options": [
 						"left",
