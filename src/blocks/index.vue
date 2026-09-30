@@ -6,6 +6,7 @@
 
 		<pwBlockinfo
 			:value="$t('kirbyblock-quote.name')"
+			:design="'pwquote'"
 			icon="quote"
 		/>
 
